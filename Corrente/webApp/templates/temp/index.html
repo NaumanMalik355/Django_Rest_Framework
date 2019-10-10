@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>STOCK Spline 03</title>
+  <link href="https://playground.anychart.com/OAlV5Yro/iframe" rel="canonical">
+  <meta content="Financial Chart,Spline Chart,Stock Chart" name="keywords">
+  <meta content="AnyChart - JavaScript Charts designed to be embedded and integrated" name="description">
+  <style>
+    html,
+    body,
+    #container {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+  <script
+    src="https://cdn.anychart.com/releases/8.7.0/js/anychart-core.min.js?hcode=a0c21fc77e1449cc86299c5faa067dc4"></script>
+  <script
+    src="https://cdn.anychart.com/releases/8.7.0/js/anychart-stock.min.js?hcode=a0c21fc77e1449cc86299c5faa067dc4"></script>
+  <script
+    src="https://cdn.anychart.com/releases/8.7.0/js/anychart-exports.min.js?hcode=a0c21fc77e1449cc86299c5faa067dc4"></script>
+  <script
+    src="https://cdn.anychart.com/releases/8.7.0/js/anychart-ui.min.js?hcode=a0c21fc77e1449cc86299c5faa067dc4"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
+  <script>
+    var endpoint = '/consumo/'
+    $.ajax({
+      method: "GET",
+      url: endpoint,
+      success: function (data) {
+        table = anychart.data.table();
+        table.addData(
+          data
+        );
+        mapping_euro = table.mapAs();
+        mapping_euro.addField('value', 1);
+        var chart = anychart.stock();
+        var series_euro = chart.plot(0).spline(mapping_euro);
+        series_euro.name("Corrente Fase R: ");
+        chart.title('Grafico Corrente Ampere (A) | Area: Prensa 200 Ton');
+        chart.container('container');
+        chart.draw();
+      }
+    })
+  </script>
+</body>
+
+</html>
